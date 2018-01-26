@@ -1,0 +1,14 @@
+extends ../app.jade
+block content
+	div(class="container")
+		h1 FotoFacilito
+		form(action="/users",method="POST")
+			div(class="form-group")
+				label(for="email") Ingrese su email
+				input(type="text" name="email" id="email" placeholder="Email" class="form-control")
+			div(class="form-group")
+				label(for="password") Ingrese su contraseña
+				input(type="password" name="password" id="password" placeholder="Contraseña" class="form-control")
+			div
+				input(type="submit" value="Iniciar sesión" class="btn btn-primary")
+				a(href="#" class="pull-right") Olvidé mi contraseña
