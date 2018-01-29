@@ -1,0 +1,33 @@
+extends ../app.jade
+block content
+	div(class="container")
+		h1 FotoFacilito
+		h3 Inicia Sesión
+		form(action="/users",method="POST")
+			div(class="form-group")
+				label(for="email") Ingrese su email
+				input(type="text" name="email" id="email" placeholder="Email" class="form-control")
+			div(class="form-group")
+				label(for="password") Ingrese su contraseña
+				input(type="password" name="password" id="password" placeholder="Contraseña" class="form-control")
+			div
+				input(type="submit" value="Iniciar sesión" class="btn btn-primary")
+				a(href="#" class="pull-right") Olvidé mi contraseña
+		h3 Registrate
+		//- Probando
+		div(id="registerSuccess" class="alert alert-success alert-dismissible" style="display:none")
+			a(href="#" class="close" data-dismiss="alert" aria-label="close")&times;
+			p Registrado satisfactoriamente
+		form(id="register" action="/",method="POST")
+			div(class="form-group")
+				label(for="email") Email
+				input(type="text" name="email" id="email" placeholder="Email" class="form-control")
+			div(class="form-group")
+				label(for="password") Contraseña
+				input(type="password" name="password" id="password" placeholder="Contraseña" class="form-control")
+			div(class="form-group")
+				label(for="password") Confirmar contraseña
+				input(type="password" name="passwordConfimation" id="passwordConfimation" placeholder="Contraseña" class="form-control")
+			div
+				input(type="submit" value="Registrar" class="btn btn-primary")
+				
