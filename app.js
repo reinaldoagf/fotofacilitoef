@@ -1,6 +1,7 @@
 var express= require('express')
 var bodyParser= require('body-parser')
 var mongoose= require('mongoose')
+var User= require('./models/user').User
 
 var app= express()
 
@@ -15,24 +16,6 @@ app.use(bodyParser.urlencoded({extended:true}))
 //Enviando motor de plantilla jade
 app.set('view engine','jade')
 
-//Definiendo esquema y creando modelo
-var userSchemaJSON={
-	email:String,
-	password:String
-}
-var userSchema= new Schema(userSchemaJSON)
-var User= mongoose.model('User',userSchema)
-
-//Conexión a base de datos
-mongoose.connect('mongodb://localhost/fotofacilito', {
-  useMongoClient: true
-})
-// Get Mongoose to use the global promise library
-mongoose.Promise = global.Promise;
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //Rutas
 app.get('/',function (request,response) {
@@ -48,7 +31,8 @@ app.get('/',function (request,response) {
 app.post('/users',function (request,response) {
 	var user= new User({email:request.body.email,password:request.body.password})
 	user.save(function(){
-		console.log('=== Registro guardado exitosamente '+ user)		
+		console.log('=== Login exitoso                          ===')	
+		console.log(user)	
 		response.send('Datos obtenidos satisfactoriamente')
 	})
 })
@@ -56,5 +40,5 @@ app.get('/foto',function (request,response) {
 	response.render('photo/index')
 })
 
-console.log('=== Server running in https://localhost:80')
+console.log('=== Server running in https://localhost:80 ===')
 app.listen(80)
