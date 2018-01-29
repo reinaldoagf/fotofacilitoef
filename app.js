@@ -25,32 +25,39 @@ app.get('/',function (request,response) {
 	// User.remove(function(){
 	// 	console.log('Colección eliminada')
 	// })
-	if (request.route.methods.post) {
-		response.render('layouts/index')
-		console.log('redireccionado')
+	User.find(function(err,doc){
+	if (err) {
+		throw err;
 	}else{
-		User.find(function(err,doc){
-		if (err) {
-			throw err;
-		}else{
-			console.log('=== Colección de usuarios registrados      ===')
-			console.log(doc)
-			response.render('layouts/index')
-		}
-		})	
-	}	
+		console.log('=== Colección de usuarios registrados      ===')
+		console.log(doc)
+		response.render('layouts/index')
+	}})	
 })
 app.post('/',function (request,response) {
 	var user= new User({
-		email                :request.body.email,
+		name                 :request.body.name,
+		username             :request.body.username,
 		password             :request.body.password,
-		passwordConfirmation :request.body.passwordConfimation
+		passwordConfirmation :request.body.passwordConfimation,
+		age                  :request.body.age,
+		email                :request.body.email,
+		birthdate            :request.body.birthdate,
+		sex                  :request.body.sex,
 	})
-	user.save(function(){
-		console.log('=== Registro exitoso                       ===')
-		console.log(user)
+	user.save(function(err){
+		if (err) {
+			console.log(String(err))
+			response.status(500).send({ error: 'Register Error' });
+			// response.json({error : "Register Error", status : 400});
+		}else{
+			console.log('=== Registro exitoso                       ===')
+			console.log(user)
+			// response.status(200).send({ success: 'Register Successfully', data:user });
+			response.json({success : "Register Successfully", status : 200, data:user});
+
+		}
 	})
-	response.send({partials:{part:'part'}});
 })
 // app.post('/users',function (request,response) {
 // 	var user= new User({email:request.body.email,password:request.body.password})
