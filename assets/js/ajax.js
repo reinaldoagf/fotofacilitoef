@@ -4,13 +4,12 @@ $('#register').on('submit',function(event) {
     	'name'                 :$('#register #name').val(),
 		'username'             :$('#register #username').val(),
 		'password'             :$('#register #password').val(),
-		'passwordConfirmation' :$('#register #passwordConfimation').val(),
+		'passwordConfirmation' :$('#register #passwordConfirmation').val(),
 		'age'                  :$('#register #age').val(),
 		'email'                :$('#register #email').val(),
 		'birthdate'            :$('#register #birthdate').val(),
 		'sex'                  :$('#register #sex').val(),
     }
-    
     $.ajax({
       	url: '/',
       	type: 'POST',
@@ -23,7 +22,7 @@ $('#register').on('submit',function(event) {
         		$('#register #name').val('')
 				$('#register #username').val('')
 				$('#register #password').val('')
-				$('#register #passwordConfimation').val('')
+				$('#register #passwordConfirmation').val('')
 				$('#register #age').val('')
 				$('#register #email').val('')
 				$('#register #birthdate').val('')
@@ -33,7 +32,7 @@ $('#register').on('submit',function(event) {
     	error: function(result) {
     		if(result.status == 500){
     			$('#registerError' ).fadeIn( 3000 ).delay( 3000 ).fadeOut( 3000 )
-        		console.log('Error al registrar usuario')
+    			console.log('error')
         	}
         }
     });

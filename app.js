@@ -34,12 +34,16 @@ app.get('/',function (request,response) {
 		response.render('layouts/index')
 	}})	
 })
+// app.post('/prueba',function (request,response) {
+// 	response.setHeader('content-type', 'application/json') 
+// 	response.end(JSON.stringify(request.body))
+// })
 app.post('/',function (request,response) {
 	var user= new User({
 		name                 :request.body.name,
 		username             :request.body.username,
 		password             :request.body.password,
-		passwordConfirmation :request.body.passwordConfimation,
+		passwordConfirmation :request.body.passwordConfirmation,
 		age                  :request.body.age,
 		email                :request.body.email,
 		birthdate            :request.body.birthdate,
@@ -48,13 +52,13 @@ app.post('/',function (request,response) {
 	user.save(function(err){
 		if (err) {
 			console.log(String(err))
-			response.status(500).send({ error: 'Register Error' });
+			response.status(500).send({ error: 'Register Error'});
 			// response.json({error : "Register Error", status : 400});
 		}else{
 			console.log('=== Registro exitoso                       ===')
 			console.log(user)
 			// response.status(200).send({ success: 'Register Successfully', data:user });
-			response.json({success : "Register Successfully", status : 200, data:user});
+			response.json({success : 'Register Successfully', status : 200, data:user});
 
 		}
 	})

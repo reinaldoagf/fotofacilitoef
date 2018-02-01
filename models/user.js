@@ -20,18 +20,40 @@ usernameValidate=[20,'El username lleva un limite de 20 caracteres']
 passwordValidate=[8,'El password debe contar con al menos 8 caracteres']
 var userSchema=new Schema({
 	name:String,
-	username:{type:String,required:'Debe registrar un nombre de usuario',maxlength:usernameValidate},
-	password:{type:String,minlength:passwordValidate},
-	age:{type:Number,min:[5,'El minimo de edad permitido es 5'], max:[100,'El máximo de edad permitido son 100']},
-	email:{type:String,required:'El correo es obligatorio',match:emailValidate},
-	birthdate: Date,
-	sex:{type:String,enum:{values:sexsValidate,message:'Opción no válida'}}
+	username:{
+		type         :String,
+		required     :'Debe registrar un nombre de usuario',
+		maxlength    :usernameValidate},
+	password:{
+		type         :String,
+		minlength    :passwordValidate,
+		validate     :{
+			validator:function(pass){
+				return this.passwordConfirmation== pass;
+			},
+			message  :'Las contraseñas no son iguales'
+		}},
+	age:{
+		type         :Number,
+		min          :[5,'El minimo de edad permitido es 5'], 
+		max          :[100,'El máximo de edad permitido son 100']},
+	email:{
+		type         :String,
+		required     :'El correo es obligatorio',
+		match        :emailValidate},
+		birthdate    :Date,
+	sex:{
+		type         :String,
+		enum         :{
+			values:sexsValidate,
+			message:'Opción no válida'
+		}}
 })
 
 userSchema.virtual('passwordConfirmation').get(function() {
 	return this.pass_conf;
-}).set(function(passwordConfirm){
-	this.pass_conf=passwordConfirm;
+}).set(function(passwordConfirmation){
+	this.pass_conf=passwordConfirmation;
 })
 
 var User=mongoose.model('User',userSchema)
